@@ -6,16 +6,8 @@ import { WatchlistProvider } from './contexts/WatchlistContext';
 import { ContentProvider, useContent } from './contexts/ContentContext';
 import { useWatchlist } from './contexts/WatchlistContext';
 import CONTENT_DATA from './data';
-
-interface INoResulpProps {
-  searchTerm: string,
-  selectedCategories: string[]
-}
-
-interface IGridProps {
-  title:string, 
-  items:any
-}
+import { INoResulpProps, IGridProps } from './types';
+import { ContentDetails } from './components/ContentDetails';
 
 function NoResults({ searchTerm, selectedCategories }: INoResulpProps) {
   return (
@@ -52,6 +44,7 @@ function ContentGrid({ title, items }:IGridProps) {
               key={item.title}
               title={item.title}
               image={item.image}
+              categories={item.categories}
             />
           ))}
         </div>
@@ -199,6 +192,7 @@ function App() {
               <Route path="/movies" element={<Movies />} />
               <Route path="/tv-shows" element={<TVShows />} />
               <Route path="/my-list" element={<MyList />} />
+              <Route path="/content/:id" element={<ContentDetails />} />
             </Routes>
           </div>
         </WatchlistProvider>
