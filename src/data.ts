@@ -2,7 +2,7 @@ const CONTENT_DATA = {
   movies: [
     {
       title: "Inception",
-      image: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=500&auto=format&fit=crop&q=60",
+      image: "/movies/inception.jpg",
       type: "movie",
       categories: ["Sci-Fi", "Action", "Thriller"],
       year: 2010,
@@ -10,7 +10,7 @@ const CONTENT_DATA = {
     },
     {
       title: "The Dark Knight",
-      image: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=500&auto=format&fit=crop&q=60",
+      image: "/movies/the_dark_knight.jpeg",
       type: "movie",
       categories: ["Action", "Crime", "Drama"],
       year: 2008,
@@ -18,7 +18,7 @@ const CONTENT_DATA = {
     },
     {
       title: "Interstellar",
-      image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500&auto=format&fit=crop&q=60",
+      image: "/movies/interstellar.jpg",
       type: "movie",
       categories: ["Sci-Fi", "Adventure", "Drama"],
       year: 2014,
@@ -26,7 +26,7 @@ const CONTENT_DATA = {
     },
     {
       title: "Toy Story 4",
-      image: "https://images.unsplash.com/photo-1558679908-541bcbd0b125?w=500&auto=format&fit=crop&q=60",
+      image: "/movies/toy_story_4.jpeg",
       type: "movie",
       categories: ["Animation", "Family", "Adventure"],
       year: 2019,
@@ -34,7 +34,7 @@ const CONTENT_DATA = {
     },
     {
       title: "The Conjuring",
-      image: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=500&auto=format&fit=crop&q=60",
+      image: "/movies/conjuring.jpeg",
       type: "movie",
       categories: ["Horror", "Mystery", "Thriller"],
       year: 2013,
@@ -42,7 +42,7 @@ const CONTENT_DATA = {
     },
     {
       title: "Saving Private Ryan",
-      image: "https://images.unsplash.com/photo-1508163223045-1880bc36e222?w=500&auto=format&fit=crop&q=60",
+      image: "/movies/saving_private_ryan.jpg",
       type: "movie",
       categories: ["War", "Drama", "Action"],
       year: 1998,
@@ -50,7 +50,7 @@ const CONTENT_DATA = {
     },
     {
       title: "La La Land",
-      image: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=500&auto=format&fit=crop&q=60",
+      image: "/movies/la_la_land.jpg",
       type: "movie",
       categories: ["Romance", "Drama", "Comedy"],
       year: 2016,
@@ -58,7 +58,7 @@ const CONTENT_DATA = {
     },
     {
       title: "The Grand Budapest Hotel",
-      image: "https://images.unsplash.com/photo-1596627116790-af6f46dddbae?w=500&auto=format&fit=crop&q=60",
+      image: "/movies/grand_budapest_hotel.jpg",
       type: "movie",
       categories: ["Comedy", "Adventure", "Crime"],
       year: 2014,
@@ -66,7 +66,7 @@ const CONTENT_DATA = {
     },
     {
       title: "Planet Earth II",
-      image: "https://images.unsplash.com/photo-1552083375-1447ce886485?w=500&auto=format&fit=crop&q=60",
+      image: "/movies/planet_earth_2.jpg",
       type: "movie",
       categories: ["Documentary", "Family"],
       year: 2016,
@@ -74,7 +74,7 @@ const CONTENT_DATA = {
     },
     {
       title: "The Lord of the Rings",
-      image: "https://images.unsplash.com/photo-1506466010722-395aa2bef877?w=500&auto=format&fit=crop&q=60",
+      image: "/movies/lord_of_the_rings.jpg",
       type: "movie",
       categories: ["Fantasy", "Adventure", "Action"],
       year: 2001,
@@ -84,7 +84,7 @@ const CONTENT_DATA = {
   tvShows: [
     {
       title: "Breaking Bad",
-      image: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&auto=format&fit=crop&q=60",
+      image: "/tv_shows/breaking_bad.jpg",
       type: "tv",
       categories: ["Crime", "Drama", "Thriller"],
       year: 2008,
@@ -92,7 +92,7 @@ const CONTENT_DATA = {
     },
     {
       title: "Stranger Things",
-      image: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=500&auto=format&fit=crop&q=60",
+      image: "/tv_shows/stranger_things.jpg",
       type: "tv",
       categories: ["Drama", "Fantasy", "Horror"],
       year: 2016,
@@ -100,7 +100,7 @@ const CONTENT_DATA = {
     },
     {
       title: "The Crown",
-      image: "https://images.unsplash.com/photo-1608170825938-a8ea0305d46c?w=500&auto=format&fit=crop&q=60",
+      image: "/tv_shows/the_crown.jpg",
       type: "tv",
       categories: ["Drama", "History"],
       year: 2016,
@@ -108,7 +108,7 @@ const CONTENT_DATA = {
     },
     {
       title: "Rick and Morty",
-      image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&auto=format&fit=crop&q=60",
+      image: "/tv_shows/rick_and_morty.jpg",
       type: "tv",
       categories: ["Animation", "Comedy", "Adventure"],
       year: 2013,
@@ -116,7 +116,7 @@ const CONTENT_DATA = {
     },
     {
       title: "Blue Planet II",
-      image: "https://images.unsplash.com/photo-1582967788606-a171c1080cb0?w=500&auto=format&fit=crop&q=60",
+      image: "/tv_shows/blue_planet_2.jpg",
       type: "tv",
       categories: ["Documentary", "Family"],
       year: 2017,
@@ -124,7 +124,7 @@ const CONTENT_DATA = {
     },
     {
       title: "The Witcher",
-      image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&auto=format&fit=crop&q=60",
+      image: "/tv_shows/witcher.jpg",
       type: "tv",
       categories: ["Fantasy", "Action", "Adventure"],
       year: 2019,
@@ -132,7 +132,7 @@ const CONTENT_DATA = {
     },
     {
       title: "Modern Family",
-      image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=500&auto=format&fit=crop&q=60",
+      image: "/tv_shows/modern_family.jpeg",
       type: "tv",
       categories: ["Comedy", "Family"],
       year: 2009,
@@ -140,7 +140,7 @@ const CONTENT_DATA = {
     },
     {
       title: "True Detective",
-      image: "https://images.unsplash.com/photo-1509477887414-681937645173?w=500&auto=format&fit=crop&q=60",
+      image: "/tv_shows/true_detective.jpg",
       type: "tv",
       categories: ["Crime", "Mystery", "Thriller"],
       year: 2014,

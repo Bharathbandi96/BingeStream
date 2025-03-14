@@ -1,28 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
-
-export interface Content {
-  title: string;
-  image: string;
-  type: 'movie' | 'tv';
-  categories: string[];
-  year: number;
-  rating: number;
-}
-
-interface ContentContextType {
-  searchTerm: string;
-  setSearchTerm: (term: string) => void;
-  selectedCategories: string[];
-  toggleCategory: (category: string) => void;
-  filterContent: (content: Content[]) => Content[];
-  allCategories: string[];
-}
-
-const ALL_CATEGORIES = [
-  'Action', 'Adventure', 'Animation', 'Comedy', 'Crime',
-  'Documentary', 'Drama', 'Family', 'Fantasy', 'Horror',
-  'Mystery', 'Romance', 'Sci-Fi', 'Thriller', 'War'
-];
+import { ALL_CATEGORIES } from './data';
+import {ContentContextType, IWatchlistProps} from './types';
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
 
@@ -38,7 +16,7 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
-  const filterContent = (content: Content[]) => {
+  const filterContent = (content: IWatchlistProps[]) => {
     return content.filter(item => {
       const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategories = selectedCategories.length === 0 || 

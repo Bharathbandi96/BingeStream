@@ -1,4 +1,3 @@
-import React from 'react';
 import { Search, X } from 'lucide-react';
 import { useContent } from '../contexts/ContentContext';
 import { cn } from '../lib/utils';

@@ -1,27 +1,12 @@
 import React, { createContext, useContext, useState } from 'react';
-
-interface Content {
-  title: string;
-  image: string;
-  type: 'movie' | 'tv';
-  categories: string[];
-  year: number;
-  rating: number;
-}
-
-interface WatchlistContextType {
-  watchlist: Content[];
-  addToWatchlist: (content: Content) => void;
-  removeFromWatchlist: (title: string) => void;
-  isInWatchlist: (title: string) => boolean;
-}
+import { WatchlistContextType, IWatchlistProps } from './types';
 
 const WatchlistContext = createContext<WatchlistContextType | undefined>(undefined);
 
 export function WatchlistProvider({ children }: { children: React.ReactNode }) {
-  const [watchlist, setWatchlist] = useState<Content[]>([]);
+  const [watchlist, setWatchlist] = useState<IWatchlistProps[]>([]);
 
-  const addToWatchlist = (content: Content) => {
+  const addToWatchlist = (content: IWatchlistProps) => {
     setWatchlist((prev) => {
       if (!prev.some((item) => item.title === content.title)) {
         return [...prev, content];
