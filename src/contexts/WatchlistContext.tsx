@@ -8,19 +8,19 @@ export function WatchlistProvider({ children }: { children: React.ReactNode }) {
 
   const addToWatchlist = (content: IWatchlistProps) => {
     setWatchlist((prev) => {
-      if (!prev.some((item) => item.title === content.title)) {
+      if (!prev.some((item) => item.id === content.id)) {
         return [...prev, content];
       }
       return prev;
     });
   };
 
-  const removeFromWatchlist = (title: string) => {
-    setWatchlist((prev) => prev.filter((item) => item.title !== title));
+  const removeFromWatchlist = (id: string) => {
+    setWatchlist((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const isInWatchlist = (title: string) => {
-    return watchlist.some((item) => item.title === title);
+  const isInWatchlist = (id: string) => {
+    return watchlist.some((item) => item.id === id);
   };
 
   return (

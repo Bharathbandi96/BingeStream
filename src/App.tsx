@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { MovieCard } from './components/MovieCard';
 import { SearchAndFilter } from './components/SearchAndFilter';
@@ -30,7 +30,7 @@ function NoResults({ searchTerm, selectedCategories }: INoResulpProps) {
   );
 }
 
-function ContentGrid({ title, items }:IGridProps) {
+function ContentGrid({ title, items }: IGridProps) {
   const { filterContent, searchTerm, selectedCategories } = useContent();
   const filteredItems = filterContent(items);
 
@@ -40,11 +40,18 @@ function ContentGrid({ title, items }:IGridProps) {
       {filteredItems.length > 0 ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredItems.map((item) => (
-            <MovieCard 
-              key={item.title}
+            <MovieCard
+              key={item.id}
               title={item.title}
               image={item.image}
               categories={item.categories}
+              id={item.id}
+              description={item.description}
+              rating={item.rating}
+              year={item.year}
+              duration={item.duration}
+              quality={item.quality}
+              maturityRating={item.maturityRating}
             />
           ))}
         </div>
@@ -59,8 +66,8 @@ function Home() {
   return (
     <main className="min-h-screen bg-black text-white pt-20">
       <div className="relative h-[70vh] w-full">
-        <img 
-          src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&auto=format&fit=crop&q=60" 
+        <img
+          src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&auto=format&fit=crop&q=60"
           alt="Featured Movie"
           className="w-full h-full object-cover"
         />
@@ -93,7 +100,7 @@ function Home() {
 function Movies() {
   const { searchTerm, selectedCategories } = useContent();
   const hasActiveFilters = searchTerm || selectedCategories.length > 0;
-  
+
   return (
     <main className="min-h-screen bg-black text-white pt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -103,16 +110,16 @@ function Movies() {
           <ContentGrid title="Search Results" items={CONTENT_DATA.movies} />
         ) : (
           <div className="space-y-12">
-            <ContentGrid title="Action & Adventure" items={CONTENT_DATA.movies.filter(m => 
+            <ContentGrid title="Action & Adventure" items={CONTENT_DATA.movies.filter(m =>
               m.categories.includes('Action') || m.categories.includes('Adventure')
             )} />
-            <ContentGrid title="Sci-Fi & Fantasy" items={CONTENT_DATA.movies.filter(m => 
+            <ContentGrid title="Sci-Fi & Fantasy" items={CONTENT_DATA.movies.filter(m =>
               m.categories.includes('Sci-Fi') || m.categories.includes('Fantasy')
             )} />
-            <ContentGrid title="Comedy & Family" items={CONTENT_DATA.movies.filter(m => 
+            <ContentGrid title="Comedy & Family" items={CONTENT_DATA.movies.filter(m =>
               m.categories.includes('Comedy') || m.categories.includes('Family')
             )} />
-            <ContentGrid title="Horror & Thriller" items={CONTENT_DATA.movies.filter(m => 
+            <ContentGrid title="Horror & Thriller" items={CONTENT_DATA.movies.filter(m =>
               m.categories.includes('Horror') || m.categories.includes('Thriller')
             )} />
           </div>
@@ -136,13 +143,13 @@ function TVShows() {
         ) : (
           <div className="space-y-12">
             <ContentGrid title="Popular on OTTFLIX" items={CONTENT_DATA.tvShows} />
-            <ContentGrid title="Crime & Mystery" items={CONTENT_DATA.tvShows.filter(show => 
+            <ContentGrid title="Crime & Mystery" items={CONTENT_DATA.tvShows.filter(show =>
               show.categories.includes('Crime') || show.categories.includes('Mystery')
             )} />
-            <ContentGrid title="Fantasy & Adventure" items={CONTENT_DATA.tvShows.filter(show => 
+            <ContentGrid title="Fantasy & Adventure" items={CONTENT_DATA.tvShows.filter(show =>
               show.categories.includes('Fantasy') || show.categories.includes('Adventure')
             )} />
-            <ContentGrid title="Comedy & Family" items={CONTENT_DATA.tvShows.filter(show => 
+            <ContentGrid title="Comedy & Family" items={CONTENT_DATA.tvShows.filter(show =>
               show.categories.includes('Comedy') || show.categories.includes('Family')
             )} />
           </div>
@@ -152,10 +159,23 @@ function TVShows() {
   );
 }
 
+function MovieContent() {
+  const { id } = useParams();
+  const { getContentById } = useContent()
+  const content = getContentById(id as string);
+
+  return <ContentDetails content={content} />
+}
+
 function MyList() {
   const { watchlist } = useWatchlist();
+  const { getContentByIds } = useContent();
   const { filterContent, searchTerm, selectedCategories } = useContent();
-  const filteredWatchlist = filterContent(watchlist);
+  const contentIds: string[] = [];
+  watchlist.forEach((item) => contentIds.push(item.id));
+  const content = getContentByIds(contentIds);
+  const filteredWatchlist = filterContent(content);
+
 
   return (
     <main className="min-h-screen bg-black text-white pt-24">
@@ -192,7 +212,7 @@ function App() {
               <Route path="/movies" element={<Movies />} />
               <Route path="/tv-shows" element={<TVShows />} />
               <Route path="/my-list" element={<MyList />} />
-              <Route path="/content/:id" element={<ContentDetails />} />
+              <Route path="/content/:id" element={<MovieContent />} />
             </Routes>
           </div>
         </WatchlistProvider>
