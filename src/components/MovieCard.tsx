@@ -54,46 +54,33 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { IMovieCardProps } from './types';
 
-interface MovieCardProps {
-  id?: string;
-  title: string;
-  image: string;
-  description?: string;
-  rating?: number;
-  year?: number;
-  duration?: string;
-  quality?: string[];
-  maturityRating?: string;
-  className?: string;
-  categories?: string[];
-}
-
-export function MovieCard({ 
+export function MovieCard({
   id = 'inception', // Temporary default for mock data
-  title, 
-  image, 
-  description, 
-  rating, 
+  title,
+  image,
+  description,
+  rating,
   year,
   duration,
   quality = [],
   maturityRating,
-  categories= ['Sci-Fi', 'Horror'],
-  className 
-}: MovieCardProps) {
+  categories = [],
+  className
+}: IMovieCardProps) {
   const navigate = useNavigate();
   const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
   const [isHovered, setIsHovered] = useState(false);
-  const inWatchlist = isInWatchlist(title);
+  const inWatchlist = isInWatchlist(id);
 
   const handleWatchlistClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (inWatchlist) {
-      removeFromWatchlist(title);
+      removeFromWatchlist(id);
       toast.success('Removed from My List');
     } else {
-      addToWatchlist({ title, image, categories });
+      addToWatchlist({ id, title, image, categories });
       toast.success('Added to My List');
     }
   };
@@ -112,31 +99,31 @@ export function MovieCard({
       transition={{ duration: 0.2 }}
       onClick={handleInfoClick}
     >
-      <motion.img 
-        src={image} 
+      <motion.img
+        src={image}
         alt={title}
         className="w-full aspect-[2/3] object-cover"
         initial={{ scale: 1 }}
         whileHover={{ scale: 1.1 }}
         transition={{ duration: 0.3 }}
       />
-      <motion.div 
-        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"
-        initial={{ opacity: 0 }}
-        whileHover={{ opacity: 1 }}
+      <motion.div
+        className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-${isHovered ? 1 : 0}`}
+        // initial={{ opacity: 0 }}
+        // whileHover={{ opacity: 1 }}
         transition={{ duration: 0.2 }}
       >
-        <motion.div 
-          className="absolute bottom-0 p-4 w-full"
-          initial={{ y: 20, opacity: 0 }}
-          whileHover={{ y: 0, opacity: 1 }}
+        <motion.div
+          className={`absolute bottom-0 p-4 w-full opacity-${isHovered ? 1 : 0}`}
+          // initial={{ y: 10 }}
+          // whileHover={{ y: 0 }}
           transition={{ duration: 0.2 }}
         >
           <h3 className="text-white font-semibold mb-1">{title}</h3>
           {description && (
             <p className="text-gray-300 text-sm line-clamp-2 mb-2">{description}</p>
           )}
-          
+
           <div className="flex items-center gap-2 mb-2">
             {rating && <span className="text-green-400 text-sm">{rating.toFixed(1)}</span>}
             {year && <span className="text-gray-300 text-sm">{year}</span>}
@@ -159,7 +146,7 @@ export function MovieCard({
           )}
 
           <div className="flex gap-2">
-            <motion.button 
+            <motion.button
               className="bg-white text-black p-2 rounded-full hover:bg-white/90"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -170,11 +157,11 @@ export function MovieCard({
             >
               <Play className="w-4 h-4" />
             </motion.button>
-            <motion.button 
+            <motion.button
               className={cn(
                 "p-2 rounded-full transition-colors",
-                inWatchlist 
-                  ? "bg-green-500 text-white hover:bg-green-600" 
+                inWatchlist
+                  ? "bg-green-500 text-white hover:bg-green-600"
                   : "bg-white/20 text-white hover:bg-white/30"
               )}
               onClick={handleWatchlistClick}
@@ -183,7 +170,7 @@ export function MovieCard({
             >
               {inWatchlist ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
             </motion.button>
-            <motion.button 
+            <motion.button
               className="bg-white/20 text-white p-2 rounded-full hover:bg-white/30"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}

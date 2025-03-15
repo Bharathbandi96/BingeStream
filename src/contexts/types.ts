@@ -1,14 +1,17 @@
+import { IMovieCardProps } from "../components/types";
+
 export interface IWatchlistProps {
+  id: string;
   title: string;
   image: string;
   categories: string[];
 }
 
 export interface WatchlistContextType {
-  watchlist: IWatchlistProps[];
-  addToWatchlist: (content: IWatchlistProps) => void;
-  removeFromWatchlist: (title: string) => void;
-  isInWatchlist: (title: string) => boolean;
+  watchlist: IMovieCardProps[];
+  addToWatchlist: (content: IMovieCardProps) => void;
+  removeFromWatchlist: (id: string) => void;
+  isInWatchlist: (id: string) => boolean;
 }
 
 export interface Content {
@@ -25,6 +28,8 @@ export interface ContentContextType {
   setSearchTerm: (term: string) => void;
   selectedCategories: string[];
   toggleCategory: (category: string) => void;
-  filterContent: (content: IWatchlistProps[]) => IWatchlistProps[];
+  getContentById: (id: string) => any; //This need to be fixed
+  getContentByIds: (id: string[]) => any; //This as well
+  filterContent: (content: IMovieCardProps[]) => IMovieCardProps[];
   allCategories: string[];
 }
