@@ -7,5 +7,6 @@ export interface INoResulpProps {
 
 export interface IGridProps {
     title: string,
-    items: IMovieCardProps[]
+    items: IMovieCardProps[],
+    type: string
 }

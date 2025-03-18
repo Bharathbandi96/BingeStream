@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 import { IContentDetailsProps } from './types';
 
 export function ContentDetails({ content }: IContentDetailsProps) {
-    //   const { id } = useParams();
+    const { type } = useParams();
     const navigate = useNavigate();
     const [isPlaying, setIsPlaying] = useState(false);
     const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
@@ -183,14 +183,16 @@ export function ContentDetails({ content }: IContentDetailsProps) {
                         </div>
 
                         <div>
-                            <h3 className="text-lg font-semibold mb-4">More Like This</h3>
+                            {type === "movie" ?
+                                <h3 className="text-lg font-semibold mb-4">More Like This</h3>
+                                : <h3 className="text-lg font-semibold mb-4">Episode Info</h3>}
                             <div className="grid gap-4">
                                 {content.relatedContent && content.relatedContent.map(item => (
                                     <motion.div
                                         key={item.id}
                                         whileHover={{ scale: 1.05 }}
                                         className="relative rounded-lg overflow-hidden cursor-pointer"
-                                        onClick={() => navigate(`/content/${item.id}`)}
+                                        onClick={() => navigate(`/content/${type}/${item.id}`)}
                                     >
                                         <img
                                             src={item.image}

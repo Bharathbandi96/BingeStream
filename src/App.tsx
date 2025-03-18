@@ -30,7 +30,7 @@ function NoResults({ searchTerm, selectedCategories }: INoResulpProps) {
   );
 }
 
-function ContentGrid({ title, items }: IGridProps) {
+function ContentGrid({ title, items, type }: IGridProps) {
   const { filterContent, searchTerm, selectedCategories } = useContent();
   const filteredItems = filterContent(items);
 
@@ -43,6 +43,7 @@ function ContentGrid({ title, items }: IGridProps) {
             <MovieCard
               key={item.id}
               title={item.title}
+              type={type}
               image={item.image}
               categories={item.categories}
               id={item.id}
@@ -74,7 +75,7 @@ function Home() {
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
             <div className="max-w-lg">
-              <h1 className="text-4xl font-bold mb-4">Featured Title</h1>
+              <h1 className="text-4xl font-bold mb-4">Hello Streamer,</h1>
               <p className="text-lg mb-6">
                 Watch the latest blockbuster movies and TV shows in stunning 4K quality.
                 Stream anywhere, anytime.
@@ -91,8 +92,8 @@ function Home() {
         <SearchAndFilter />
       </div>
 
-      <ContentGrid title="Trending Now" items={CONTENT_DATA.movies} />
-      <ContentGrid title="Popular TV Shows" items={CONTENT_DATA.tvShows} />
+      <ContentGrid title="Trending Now" items={CONTENT_DATA.movies} type="movie" />
+      <ContentGrid title="Popular TV Shows" items={CONTENT_DATA.tvShows} type="tv-show" />
     </main>
   );
 }
@@ -107,21 +108,21 @@ function Movies() {
         <h1 className="text-3xl font-bold mb-8">Movies</h1>
         <SearchAndFilter />
         {hasActiveFilters ? (
-          <ContentGrid title="Search Results" items={CONTENT_DATA.movies} />
+          <ContentGrid title="Search Results" items={CONTENT_DATA.movies} type="movie" />
         ) : (
           <div className="space-y-12">
             <ContentGrid title="Action & Adventure" items={CONTENT_DATA.movies.filter(m =>
               m.categories.includes('Action') || m.categories.includes('Adventure')
-            )} />
+            )} type="movie" />
             <ContentGrid title="Sci-Fi & Fantasy" items={CONTENT_DATA.movies.filter(m =>
               m.categories.includes('Sci-Fi') || m.categories.includes('Fantasy')
-            )} />
+            )} type="movie" />
             <ContentGrid title="Comedy & Family" items={CONTENT_DATA.movies.filter(m =>
               m.categories.includes('Comedy') || m.categories.includes('Family')
-            )} />
+            )} type="movie" />
             <ContentGrid title="Horror & Thriller" items={CONTENT_DATA.movies.filter(m =>
               m.categories.includes('Horror') || m.categories.includes('Thriller')
-            )} />
+            )} type="movie" />
           </div>
         )}
       </div>
@@ -139,19 +140,19 @@ function TVShows() {
         <h1 className="text-3xl font-bold mb-8">TV Shows</h1>
         <SearchAndFilter />
         {hasActiveFilters ? (
-          <ContentGrid title="Search Results" items={CONTENT_DATA.tvShows} />
+          <ContentGrid title="Search Results" items={CONTENT_DATA.tvShows} type="tv-show" />
         ) : (
           <div className="space-y-12">
-            <ContentGrid title="Popular on OTTFLIX" items={CONTENT_DATA.tvShows} />
+            <ContentGrid title="Popular on BingeStream" items={CONTENT_DATA.tvShows} type="tv-show" />
             <ContentGrid title="Crime & Mystery" items={CONTENT_DATA.tvShows.filter(show =>
               show.categories.includes('Crime') || show.categories.includes('Mystery')
-            )} />
+            )} type="tv-show" />
             <ContentGrid title="Fantasy & Adventure" items={CONTENT_DATA.tvShows.filter(show =>
               show.categories.includes('Fantasy') || show.categories.includes('Adventure')
-            )} />
+            )} type="tv-show" />
             <ContentGrid title="Comedy & Family" items={CONTENT_DATA.tvShows.filter(show =>
               show.categories.includes('Comedy') || show.categories.includes('Family')
-            )} />
+            )} type="tv-show" />
           </div>
         )}
       </div>
@@ -160,9 +161,9 @@ function TVShows() {
 }
 
 function MovieContent() {
-  const { id } = useParams();
+  const { id, type } = useParams();
   const { getContentById } = useContent()
-  const content = getContentById(id as string);
+  const content = getContentById(id as string, type as string);
 
   return <ContentDetails content={content} />
 }
@@ -171,30 +172,56 @@ function MyList() {
   const { watchlist } = useWatchlist();
   const { getContentByIds } = useContent();
   const { filterContent, searchTerm, selectedCategories } = useContent();
-  const contentIds: string[] = [];
-  watchlist.forEach((item) => contentIds.push(item.id));
-  const content = getContentByIds(contentIds);
-  const filteredWatchlist = filterContent(content);
+  const movieIds: string[] = [];
+  const tvShowIds: string[] = [];
+  watchlist.forEach(({ id, type }) => {
+    if (type === 'movie') {
+      movieIds.push(id)
+    }
+    if (type === 'tv-show') {
+      tvShowIds.push(id);
+    }
+  });
+  const movieContent = getContentByIds(movieIds);
+  const tvShowContent = getContentByIds(tvShowIds);
 
+  const filteredMovieWatchlist = filterContent(movieContent);
+  const filteredTVShowWatchlist = filterContent(tvShowContent);
 
   return (
     <main className="min-h-screen bg-black text-white pt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold mb-8">My List</h1>
         <SearchAndFilter />
-        {watchlist.length > 0 ? (
-          filteredWatchlist.length > 0 ? (
-            <ContentGrid title="Saved for Later" items={filteredWatchlist} />
-          ) : (
-            <NoResults searchTerm={searchTerm} selectedCategories={selectedCategories} />
-          )
+        {(watchlist.length > 0) ? (
+          <>
+            {(filteredMovieWatchlist.length > 0) &&
+              <ContentGrid title="Movies Saved for Later" items={filteredMovieWatchlist} type='movie' />}
+            {(filteredTVShowWatchlist.length > 0) &&
+              <ContentGrid title="TV Shows Saved for Later" items={filteredTVShowWatchlist} type='tv-show' />
+            }
+            {(filteredMovieWatchlist.length === 0 && filteredTVShowWatchlist.length === 0) && <NoResults searchTerm={searchTerm} selectedCategories={selectedCategories} />}
+          </>
+        ) : <div className="text-center py-12">
+          <p className="text-gray-400 text-lg">
+            Your watchlist is empty. Add some movies or TV shows to watch later!
+          </p>
+        </div>
+        }
+        {/* {watchlist.length > 0 ? (
+          filteredMovieWatchlist.length > 0 ? (
+            <ContentGrid title="Movies Saved for Later" items={filteredMovieWatchlist} type='movie' />
+          ) : (filteredTVShowWatchlist.length > 0 ?
+            <ContentGrid title="TV Shows Saved for Later" items={filteredTVShowWatchlist} type='tv-show' /> : (
+              <NoResults searchTerm={searchTerm} selectedCategories={selectedCategories} />
+            ))
         ) : (
           <div className="text-center py-12">
             <p className="text-gray-400 text-lg">
               Your watchlist is empty. Add some movies or TV shows to watch later!
             </p>
           </div>
-        )}
+        )} */}
       </div>
     </main>
   );
@@ -210,9 +237,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/movies" element={<Movies />} />
-              <Route path="/tv-shows" element={<TVShows />} />
+              <Route path="/tv-show" element={<TVShows />} />
               <Route path="/my-list" element={<MyList />} />
-              <Route path="/content/:id" element={<MovieContent />} />
+              <Route path="/content/:type/:id" element={<MovieContent />} />
             </Routes>
           </div>
         </WatchlistProvider>
