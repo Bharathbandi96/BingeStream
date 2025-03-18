@@ -14,37 +14,6 @@ export function ContentDetails({ content }: IContentDetailsProps) {
     const [isPlaying, setIsPlaying] = useState(false);
     const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
 
-    // Mock data - In a real app, this would come from your content context or API
-    //   const content = {
-    //     id,
-    //     title: "Inception",
-    //     description: "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
-    //     image: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=1200",
-    //     trailerUrl: "https://www.youtube.com/watch?v=YoHD9XEInc0",
-    //     rating: 8.8,
-    //     year: 2010,
-    //     duration: "2h 28min",
-    //     director: "Christopher Nolan",
-    //     cast: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"],
-    //     genres: ["Action", "Sci-Fi", "Thriller"],
-    //     maturityRating: "PG-13",
-    //     quality: ["4K", "HDR"],
-    //     language: "English",
-    //     subtitles: ["English", "Spanish", "French"],
-    //     relatedContent: [
-    //       {
-    //         id: "interstellar",
-    //         title: "Interstellar",
-    //         image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500"
-    //       },
-    //       {
-    //         id: "tenet",
-    //         title: "Tenet",
-    //         image: "https://images.unsplash.com/photo-1597002973885-8c90683fa6e0?w=500"
-    //       }
-    //     ]
-    //   };
-
     const inWatchlist = isInWatchlist(content.id);
 
     const handleWatchlistClick = () => {
@@ -73,7 +42,12 @@ export function ContentDetails({ content }: IContentDetailsProps) {
                             width="100%"
                             height="100%"
                             playing={isPlaying}
-                            controls
+                            controls={true}
+                            config={{
+                                youtube: {
+                                  playerVars: { showinfo: 0 },
+                                },
+                            }}
                         />
                     </div>
                 ) : (
@@ -83,7 +57,7 @@ export function ContentDetails({ content }: IContentDetailsProps) {
                         className="w-full h-full object-cover"
                     />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent">
+                <div className={`absolute top-1 right-1 bg-gradient-to-t ${!isPlaying && "from-black"} via-black/50 to-transparent`}>
                     <button
                         onClick={() => navigate(-1)}
                         className="absolute top-4 right-4 p-2 bg-black/50 rounded-full hover:bg-black/70 transition-colors"
@@ -93,7 +67,7 @@ export function ContentDetails({ content }: IContentDetailsProps) {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-10">
+            <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isPlaying ? "mt-10" : "-mt-32"} relative z-10`}>
                 <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
