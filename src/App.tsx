@@ -67,8 +67,9 @@ function Home() {
   return (
     <main className="min-h-screen bg-black text-white pt-20">
       <div className="relative h-[70vh] w-full">
+        {/* https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&auto=format&fit=crop&q=60 */}
         <img
-          src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&auto=format&fit=crop&q=60"
+          src="home.avif"
           alt="Featured Movie"
           className="w-full h-full object-cover"
         />
