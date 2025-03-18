@@ -10,6 +10,7 @@ export interface IMovieCardProps {
   title: string;
   description?: string;
   image: string;
+  type?:string;
   trailerUrl?:string;
   rating?: number;
   year?: number;

@@ -27,18 +27,16 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const getContentById = (id: string) => {
-    let content = {};
-    for (const key in CONTENT_DATA) {
-      content = CONTENT_DATA[key].find(item => item.id === id) as IMovieCardProps;
-    }
-    return content;
+  const getContentById = (id: string, type: string) => {
+    const contentType = type === 'tv-show' ? "tvShows" : "movies";
+    return CONTENT_DATA[contentType].find(item => item.id === id) as IMovieCardProps || [];
   }
 
   const getContentByIds = (ids: string[]) => {
     let content: IMovieCardProps[] = [];
     for (const key in CONTENT_DATA) {
-      content = CONTENT_DATA[key].filter(item => ids.includes(item.id)) as IMovieCardProps[];
+      const filteredContent = CONTENT_DATA[key].filter(item => ids.includes(item.id)) as IMovieCardProps[];
+      content = [...content, ...filteredContent];
     }
     return content;
   }

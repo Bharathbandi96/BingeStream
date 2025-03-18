@@ -63,6 +63,7 @@ export function MovieCard({
   description,
   rating,
   year,
+  type,
   duration,
   quality = [],
   maturityRating,
@@ -80,14 +81,14 @@ export function MovieCard({
       removeFromWatchlist(id);
       toast.success('Removed from My List');
     } else {
-      addToWatchlist({ id, title, image, categories });
+      addToWatchlist({ id, title, image, categories, type });
       toast.success('Added to My List');
     }
   };
 
   const handleInfoClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    navigate(`/content/${id}`);
+    navigate(`/content/${type}/${id}`);
   };
 
   return (
@@ -152,7 +153,7 @@ export function MovieCard({
               whileTap={{ scale: 0.95 }}
               onClick={(e: any) => {
                 e.stopPropagation();
-                navigate(`/content/${id}?autoplay=true`);
+                navigate(`/content/${type}/${id}?autoplay=true`);
               }}
             >
               <Play className="w-4 h-4" />

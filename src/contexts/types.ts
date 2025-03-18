@@ -28,7 +28,7 @@ export interface ContentContextType {
   setSearchTerm: (term: string) => void;
   selectedCategories: string[];
   toggleCategory: (category: string) => void;
-  getContentById: (id: string) => any; //This need to be fixed
+  getContentById: (id: string, type: string) => any; //This need to be fixed
   getContentByIds: (id: string[]) => any; //This as well
   filterContent: (content: IMovieCardProps[]) => IMovieCardProps[];
   allCategories: string[];
