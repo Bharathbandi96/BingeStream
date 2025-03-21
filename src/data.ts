@@ -610,9 +610,9 @@ const CONTENT_DATA: Record<string, IMovieCardProps[]> = {
       language: "English",
       subtitles: ["English", "Spanish", "French"],
       relatedContent: [
-        { episode: "S01E01", title: "Pilot" },
-        { episode: "S02E12", title: "Phoenix" },
-        { episode: "S05E14", title: "Ozymandias" }
+        { episode: "S01E01", title: "Pilot", image: "/tv_shows/breaking-bad/Ep-1.jpeg" },
+        { episode: "S02E12", title: "Phoenix", image: "/tv_shows/breaking-bad/Ep-2.jpeg" },
+        { episode: "S05E14", title: "Ozymandias", image: "/tv_shows/breaking-bad/Ep-3.jpg" }
       ]
     },
     {
@@ -633,9 +633,9 @@ const CONTENT_DATA: Record<string, IMovieCardProps[]> = {
       language: "English",
       subtitles: ["English", "Spanish", "French"],
       relatedContent: [
-        { episode: "S01E01", title: "The Vanishing of Will Byers" },
-        { episode: "S03E08", title: "The Battle of Starcourt" },
-        { episode: "S04E09", title: "The Piggyback" }
+        { episode: "S01E01", title: "The Vanishing of Will Byers", image: "/tv_shows/stranger-things/Ep-1.jpeg" },
+        { episode: "S03E08", title: "The Battle of Starcourt", image: "/tv_shows/stranger-things/Ep-2.jpeg" },
+        { episode: "S04E09", title: "The Piggyback", image: "/tv_shows/stranger-things/Ep-3.jpeg" }
       ]
     },
     {
@@ -656,9 +656,9 @@ const CONTENT_DATA: Record<string, IMovieCardProps[]> = {
       language: "English",
       subtitles: ["English", "Spanish", "French"],
       relatedContent: [
-        { episode: "S01E01", title: "Wolferton Splash" },
-        { episode: "S02E10", title: "Mystery Man" },
-        { episode: "S04E10", title: "War" }
+        { episode: "S01E01", title: "Wolferton Splash", image: "/tv_shows/crown/Ep-1.jpeg" },
+        { episode: "S02E10", title: "Mystery Man", image: "/tv_shows/crown/Ep-2.jpeg" },
+        { episode: "S04E10", title: "War", image: "/tv_shows/crown/Ep-3.jpeg" }
       ]
     },
     {
@@ -679,9 +679,9 @@ const CONTENT_DATA: Record<string, IMovieCardProps[]> = {
       language: "English",
       subtitles: ["English", "Spanish", "French"],
       relatedContent: [
-        { episode: "S01E05", title: "Meeseeks and Destroy" },
-        { episode: "S03E07", title: "The Ricklantis Mixup" },
-        { episode: "S05E08", title: "Rickternal Friendshine of the Spotless Mort" }
+        { episode: "S01E05", title: "Meeseeks and Destroy", image: "/tv_shows/rick-n-morty/Ep-1.jpeg" },
+        { episode: "S03E07", title: "The Ricklantis Mixup", image: "/tv_shows/rick-n-morty/Ep-2.jpeg" },
+        { episode: "S05E08", title: "Rickternal Friendshine of the Spotless Mort", image: "/tv_shows/rick-n-morty/Ep-3.jpeg" }
       ]
     },
     {
@@ -702,9 +702,9 @@ const CONTENT_DATA: Record<string, IMovieCardProps[]> = {
       language: "English",
       subtitles: ["English", "Spanish", "French"],
       relatedContent: [
-        { episode: "S01E01", title: "One Ocean" },
-        { episode: "S01E03", title: "Coral Reefs" },
-        { episode: "S01E07", title: "Our Blue Planet" }
+        { episode: "S01E01", title: "One Ocean", image: "/tv_shows/blue-planet-2/Ep-1.jpeg" },
+        { episode: "S01E03", title: "Coral Reefs", image: "/tv_shows/blue-planet-2/Ep-2.jpeg" },
+        { episode: "S01E07", title: "Our Blue Planet", image: "/tv_shows/blue-planet-2/Ep-3.jpeg" }
       ]
     },
     {
@@ -725,9 +725,9 @@ const CONTENT_DATA: Record<string, IMovieCardProps[]> = {
       language: "English",
       subtitles: ["English", "Spanish", "French"],
       relatedContent: [
-        { episode: "S01E04", title: "Of Banquets, Bastards and Burials" },
-        { episode: "S02E06", title: "Dear Friend" },
-        { episode: "S03E08", title: "The Cost of Chaos" }
+        { episode: "S01E04", title: "Of Banquets, Bastards and Burials", image: "/tv_shows/witcher/Ep-1.jpeg" },
+        { episode: "S02E06", title: "Dear Friend", image: "/tv_shows/witcher/Ep-2.jpeg" },
+        { episode: "S03E08", title: "The Cost of Chaos", image: "/tv_shows/witcher/Ep-3.jpg" }
       ]
     },
     {
@@ -748,9 +748,9 @@ const CONTENT_DATA: Record<string, IMovieCardProps[]> = {
       language: "English",
       subtitles: ["English", "Spanish", "French"],
       relatedContent: [
-        { episode: "S01E23", title: "Hawaii" },
-        { episode: "S03E01", title: "Dude Ranch" },
-        { episode: "S05E24", title: "The Wedding" }
+        { episode: "S01E23", title: "Hawaii", image: "/tv_shows/modern-family/Ep-1.jpeg" },
+        { episode: "S03E01", title: "Dude Ranch", image: "/tv_shows/modern-family/Ep-2.jpeg" },
+        { episode: "S05E24", title: "The Wedding", image: "/tv_shows/modern-family/Ep-3.jpeg" }
       ]
     },
     {
@@ -771,9 +771,9 @@ const CONTENT_DATA: Record<string, IMovieCardProps[]> = {
       language: "English",
       subtitles: ["English", "Spanish", "French"],
       relatedContent: [
-        { episode: "S01E04", title: "Who Goes There" },
-        { episode: "S03E06", title: "Hunters in the Dark" },
-        { episode: "S04E08", title: "Night Country" }
+        { episode: "S01E04", title: "Who Goes There", image: "/tv_shows/true-detective/Ep-1.jpeg" },
+        { episode: "S03E06", title: "Hunters in the Dark", image: "/tv_shows/true-detective/Ep-2.jpeg" },
+        { episode: "S04E08", title: "Night Country", image: "/tv_shows/true-detective/Ep-3.jpeg" }
       ]
     }
   ]

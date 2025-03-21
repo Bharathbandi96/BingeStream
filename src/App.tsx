@@ -1,4 +1,6 @@
+import { useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { Navbar } from './components/Navbar';
 import { MovieCard } from './components/MovieCard';
 import { SearchAndFilter } from './components/SearchAndFilter';
@@ -64,6 +66,13 @@ function ContentGrid({ title, items, type }: IGridProps) {
 }
 
 function Home() {
+
+  const searchRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToSearch = () => {
+    searchRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }
+
   return (
     <main className="min-h-screen bg-black text-white pt-20">
       <div className="relative h-[70vh] w-full">
@@ -81,7 +90,7 @@ function Home() {
                 Watch the latest blockbuster movies and TV shows in stunning 4K quality.
                 Stream anywhere, anytime.
               </p>
-              <button className="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 transition">
+              <button onClick={scrollToSearch} className="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 transition">
                 Watch Now
               </button>
             </div>
@@ -89,7 +98,7 @@ function Home() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div ref={searchRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <SearchAndFilter />
       </div>
 
@@ -235,12 +244,14 @@ function App() {
         <WatchlistProvider>
           <div className="min-h-screen bg-black">
             <Navbar />
+            <Toaster position='top-right' />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/movies" element={<Movies />} />
               <Route path="/tv-show" element={<TVShows />} />
               <Route path="/my-list" element={<MyList />} />
               <Route path="/content/:type/:id" element={<MovieContent />} />
+
             </Routes>
           </div>
         </WatchlistProvider>
