@@ -45,7 +45,7 @@ export function ContentDetails({ content }: IContentDetailsProps) {
                             controls={true}
                             config={{
                                 youtube: {
-                                  playerVars: { showinfo: 0 },
+                                    playerVars: { showinfo: 0 },
                                 },
                             }}
                         />
@@ -166,7 +166,7 @@ export function ContentDetails({ content }: IContentDetailsProps) {
                                         key={item.id}
                                         whileHover={{ scale: 1.05 }}
                                         className="relative rounded-lg overflow-hidden cursor-pointer"
-                                        onClick={() => navigate(`/content/${type}/${item.id}`)}
+                                        onClick={() => type === "movie" ? navigate(`/content/${type}/${item.id}`) : toast("Preview not available.!")}
                                     >
                                         <img
                                             src={item.image}
